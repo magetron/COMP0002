@@ -1,6 +1,10 @@
 #include "stdio.h"
 
 int main () {
-	for (int i = 1; i <= 13; i++) printf("%d * 13 = %d\n", i, i*13);
+	int i = 1;
+	while (i <= 13) {
+		printf("%d * 13 = %d\n", i, i*13);
+		i++;
+	}
 	return 0;
 }
