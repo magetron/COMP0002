@@ -2,6 +2,7 @@
 #include "math.h"
 
 int isPrime(int test) {
+	if (test <= 1) return 0;
 	for (int i = 2; i <= roundf(sqrt(test)); i++ ) if (test % i == 0) return 0;
 	return 1;
 }
@@ -9,7 +10,6 @@ int isPrime(int test) {
 int main () {
 	int n;
 	scanf("%d", &n);
-	if (n <= 1) printf("no"); else 
-		if (isPrime(n)) printf("yes"); else printf("no");
+	if (isPrime(n)) printf("yes\n"); else printf("no\n");
 	return 0;
 }
