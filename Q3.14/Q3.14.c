@@ -7,12 +7,11 @@ const int yy 	= 1970;
 const int ddd	= 4;
 // Unix Time Epoch
 
-int d = 0;
-int m = 0;
-int y = 0;
+int d[2] = {0, 0};
+int m[2] = {0, 0};
+int y[2] = {0, 0};
 
-
-int init () {
+int init (int *d, int *m, int *y) {
 	int pos = 0;
 	char tmp = ' ';
 	do {
@@ -20,11 +19,11 @@ int init () {
 		//printf("tmp = %c\n",tmp);
 		if (tmp != '\n') {
 			if (tmp == '-') pos++; else 
-				if (pos == 0) d = d * 10 + tmp - '0';
-				else if (pos == 1) m = m * 10 + tmp - '0';
-				else if (pos == 2) y = y * 10 + tmp - '0';
+				if (pos == 0) *d = *d * 10 + tmp - '0';
+				else if (pos == 1) *m = *m * 10 + tmp - '0';
+				else if (pos == 2) *y = *y * 10 + tmp - '0';
 		}
-		//printf("pos = %d, d = %d, m = %d, y = %d\n",pos, d, m ,y);
+		//printf("pos = %d, d = %d, m = %d, y = %d\n",pos, *d, *m ,*y);
 	} while (tmp != '\n');
 	return pos;	
 }	
@@ -48,12 +47,18 @@ int is_valid (int d, int m, int y) {
 	else return 0;
 }
 
-int day_of_date (int d, int m, int y) {
+int day_of_date (int d[2], int m[2], int y[2]) {
 	int p_d = dd;
 	int p_m = mm;
 	int p_y = yy;
-	int p_dd = ddd;
-	while (!( (p_d == d) && (p_m == m) && (p_y == y) )) {
+	int ans = 0;
+	int st_count = 0;
+	//int p_dd = ddd;
+	while (!( (p_d == d[1]) && (p_m == m[1]) && (p_y == y[1]) )) {
+		
+		if ( (p_d == d[0]) && (p_m == m[0]) && (p_y == y[0]) ) st_count = 1;
+		if ( st_count ) ans ++;
+
 		p_d ++;
 		if ( 		(is_knuckle(p_m))  ) { if (p_d > 31) {	p_d = 1; p_m ++; } }
 		else if ( 	(p_m != 2) 	   ) { if (p_d > 30) {	p_d = 1; p_m ++; } }
@@ -63,12 +68,12 @@ int day_of_date (int d, int m, int y) {
 			p_m = 1;
 			p_y ++;
 		}
-		
-		p_dd ++;
-		if (p_dd > 6) p_dd = 0;
-		//printf("%d %d %d %d\n", p_d, p_m, p_y, p_dd);
+
+		//p_dd ++;
+		//if (p_dd > 6) p_dd = 0;
+		//printf("%d %d %d\n", p_d, p_m, p_y);
 	}
-	return p_dd;
+	return ans;
 }
 
 char *print_day(int dd) {
@@ -126,14 +131,16 @@ char *print_leap_year(int y) {
 }
 
 int main () {
-	if (init() > 2) {
+	if (init(&d[0], &m[0], &y[0]) > 2) {
 		printf("ERROR: invalid input");
 		return 1;
 	}
-	if (is_valid(d, m, y)) {
-		printf("%d %s %d is a %s.\n", d, print_month(m), y, print_day(day_of_date(d, m, y)));
-		printf("%d %s.\n", y, print_leap_year(y));
-	} else printf("No valid date");
+	if (init(&d[1], &m[1], &y[1]) > 2) {
+		printf("ERROR: invalid input");
+		return 1;
+	}
+	if ((is_valid(d[0], m[0], y[0])) && (is_valid(d[1], m[1], y[1]))) printf("There are %d days between %d %s %d and %d %s %d.\n", day_of_date(d, m, y), d[0], print_month(m[0]), y[0], d[1], print_month(m[1]), y[1]);
+	else printf("No valid date");
 
 	//printf("%d %d %d", d, m, y);
 	return 0;
