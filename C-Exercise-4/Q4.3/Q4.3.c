@@ -1,7 +1,6 @@
 #include "stdio.h"
+#include "string.h"
 #include "stdlib.h"
-
-//const int max_array_length = 1024;
 
 int cmp (const void *p, const void *q) {
 	int l = *(int *)p;
@@ -9,19 +8,21 @@ int cmp (const void *p, const void *q) {
 	return l - r;
 }
 
-int *sort (int *n) {
-	int tmp[] = *n;
-	qsort(tmp, sizeof(tmp) / sizeof(int), sizeof(int), cmp);
-	return *tmp;
+int *sort (int *n, int size) {
+	int *ans = malloc(sizeof(int) * size);
+	memcpy(ans, n, sizeof(int) * size);
+	qsort(ans, size, sizeof(int), cmp);
+	//for (int i = 0; i < size; i++) printf("%d ", ans[i]);
+	return ans;
 }
 
 int list[] = {1, 2, 4, 5, 6, 3, 123, 15, 125, 99234, 234};
 
 int main () {
-	list = sort(list);
-	for (int i = 0; i < sizeof(list) / sizeof(int); i++)
-		printf("%d ", list[i]);
+	int size = sizeof(list) / sizeof(int);
+	int *ans;
+	ans = sort(list, size);
+	for (int i = 0; i < 11; i++) printf("%d ", ans[i]);
+	free(ans);
 	return 0;
-}
-
-		
+}		
