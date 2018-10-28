@@ -28,7 +28,7 @@ void add_array(array *new_array, int pos) {
 }
 
 void delete_array(int pos) {
-	//free(pointer[pos] -> data);
+	//free(pointer[pos]);
 	free(pointer[pos]);
 	return;
 }
@@ -43,6 +43,12 @@ int get_array_value(int pos, int array_pos) {
 	return pointer[pos] -> data[array_pos];
 }	
 
+void copy_array(int pos, int dest) {
+	free(pointer[dest]);
+	pointer[dest] = pointer[pos];
+	return;
+}
+
 int main () {
 	add_array(create_array(new_array_1, sizeof(new_array_1) / sizeof(*new_array_1)), 1);
 	add_array(create_array(new_array_2, sizeof(new_array_2) / sizeof(*new_array_2)), 2);
@@ -52,6 +58,8 @@ int main () {
 	print_array(3);
 	delete_array(3);
 	add_array(create_array(new_array_2, sizeof(new_array_2) / sizeof(*new_array_2)), 3);
+	print_array(3);
+	copy_array(1,3);
 	print_array(3);
 	printf("%d\n",get_array_value(1,1));
 	print_array(1);
