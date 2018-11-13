@@ -49,10 +49,17 @@ void copy_array(int pos, int dest) {
 	return;
 }
 
+void set_array_value(int pos, int array_pos, int data) {
+	pointer[pos] -> data[array_pos] = data;
+	return;
+}
+
 int main () {
 	add_array(create_array(new_array_1, sizeof(new_array_1) / sizeof(*new_array_1)), 1);
 	add_array(create_array(new_array_2, sizeof(new_array_2) / sizeof(*new_array_2)), 2);
 	add_array(create_array(new_array_3, sizeof(new_array_3) / sizeof(*new_array_3)), 3);
+	print_array(1);
+	set_array_value(1, 0, 1000);
 	print_array(1);
 	print_array(2);
 	print_array(3);
