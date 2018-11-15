@@ -24,10 +24,13 @@ Upload the Arduino Code at `/lightdetection/lightdetection.ino` to the UNO board
 ### Step 3
 Run Processing Java Code at `/my_arduino_game/my_arduino_game.pde`. Done!
 
+## Video
+[Video Link Here](https://mediacentral.ucl.ac.uk/Play/15452)
 
 ## References
 
 Flappy Bird, developed by Dong Nguyen and dotGears, 2013
 
 Pong, developed by Atari, Inc., 1972
+
 
