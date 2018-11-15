@@ -6,6 +6,8 @@
 
 Author : [Daiqi Wu](https://wudaiqi.com)
 
+UCL Email : [daiqi.wu.17@ucl.ac.uk](mailto:daiqi.wu.17@ucl.ac.uk)
+
 Tools Used: Arduino UNO, Processing Java
 
 ## Description
@@ -19,10 +21,10 @@ Download Arduino IDE and Processing IDE, connect Arduino UNO to PC / mac  with s
 
 
 ### Step 2
-Upload the Arduino Code at `/lightdetection/lightdetection.ino` to the UNO board. Check Serial Port output to `COM4` with `9600 braud`.
+Upload the Arduino Code at `./arduino/lightdetection.ino` to the UNO board. Check Serial Port output to `COM4` with `9600 braud`.
 
 ### Step 3
-Run Processing Java Code at `/my_arduino_game/my_arduino_game.pde`. Done!
+Run Processing Java Code at `./my_arduino_game/my_arduino_game.pde`. Done!
 
 ## Video
 [Video Link Here](https://mediacentral.ucl.ac.uk/Play/15452)
