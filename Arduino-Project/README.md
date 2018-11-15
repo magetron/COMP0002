@@ -1,6 +1,6 @@
 # COMP0002 C Coursework - Daiqi Wu
 
-![Screenshot](/img/screenshot.png)
+![Screenshot](./img/screenshot.png)
 
 ## Submit Information
 
@@ -15,7 +15,7 @@ This Project is a game that combines the idea of Flappy Bird and the Pong Game. 
 
 ### Step 1
 Download Arduino IDE and Processing IDE, connect Arduino UNO to PC / mac  with sensors connected on the breadboard to the Arduino. See below for the circuit diagram:
-![Diagram](/img/diagram.png)
+![Diagram](./img/diagram.png)
 
 
 ### Step 2
