@@ -15,7 +15,7 @@ const float	sin60 = 0.86602540378;
 const float 	cos60 = 0.5;
 const point 	initA = {200,0};
 const int	initSideLength = 243;
-const int 	recursiveTimes = 6;
+const int 	recursiveTimes = 2;
 
 line ab,bc,ca;
 
