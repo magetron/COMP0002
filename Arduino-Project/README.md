@@ -1,5 +1,7 @@
 # COMP0002 C Coursework - Daiqi Wu
 
+![Screenshot](/img/screenshot.png)
+
 ## Submit Information
 
 Author : [Daiqi Wu](https://wudaiqi.com)
@@ -13,6 +15,7 @@ This Project is a game that combines the idea of Flappy Bird and the Pong Game. 
 
 ### Step 1
 Download Arduino IDE and Processing IDE, connect Arduino UNO to PC / mac  with sensors connected on the breadboard to the Arduino. See below for the circuit diagram:
+![Diagram](/img/diagram.png)
 
 
 ### Step 2
@@ -21,7 +24,8 @@ Upload the Arduino Code at `/lightdetection/lightdetection.ino` to the UNO board
 ### Step 3
 Run Processing Java Code at `/my_arduino_game/my_arduino_game.pde`. Done!
 
-## Thanks to
+
+## References
 
 Flappy Bird, developed by Dong Nguyen and dotGears, 2013
 
