@@ -1,6 +1,6 @@
 //Written by Daiqi Wu
 //Idea from Flappy Bird and Ping Pong game
-//Used arduino to set the color tone
+//Used arduino to set the game environment
 
 import processing.serial.*;
 
