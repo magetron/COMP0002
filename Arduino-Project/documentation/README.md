@@ -16,14 +16,14 @@ This Project is a game that combines the idea of Flappy Bird and the Pong Game. 
 ## How to Use
 
 ### Step 1
-Download Arduino IDE and Processing IDE, connect Arduino UNO to PC / mac  with sensors connected on the breadboard to the Arduino. See below for the circuit diagram:
+Download Arduino IDE and Processing IDE, connect Arduino UNO to PC / mac with sensors connected on the breadboard to the Arduino. See below for the circuit diagram:
 ![Diagram](./img/diagram.png)
 
 ### Step 2
-Upload the Arduino Code at `./arduino/lightdetection.ino` to the UNO board. Check Serial Port output to `COM4` with `9600 baud`.
+Upload the Arduino Code at `directory-to-project/arduino/lightdetection.ino` to the UNO board. Check Serial Port output to `COM4` with `9600 baud`.
 
 ### Step 3
-Run Processing Java Code at `./my_arduino_game/my_arduino_game.pde`. Done!
+Run Processing Java Code at `directory-to-project/processing_code/my_arduino_game.pde`. Done!
 
 ## Video
 [Video Link Here](https://mediacentral.ucl.ac.uk/Play/15452)
