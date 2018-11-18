@@ -22,7 +22,7 @@ countPositives :: [ Int ] -> Int
 countPositives xs = sum [ 1 | x <- xs, x > 0]
 
 capitalised :: String -> String
-capitalised [] = []
 capitalised (h:t)  = toUpper h : [ toLower y | y <- t]
 
-
+title :: [String] -> [String]
+title strs = [capitalised str | str <- strs]
