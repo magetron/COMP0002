@@ -28,7 +28,7 @@ horseEqHelper [] [] = True
 horseEqHelper [ strX ] [] = False
 horseEqHelper [] [ strY ] = False
 horseEqHelper ( strX : strXs ) ( strY : strYs ) | (strX == strY) = True && (horseEqHelper strXs strYs)
-  						| otherwise = False 
+                                                | otherwise = False 
 
 
 niceHorse :: Horse
@@ -79,9 +79,9 @@ niceHorse = Horsify [   "                                               #    #  
 
 horse :: Horse
 horse = Horsify [ "     ,/)      ",
-                  "     ;;' \\   ",
-                  "  ,;;' ( '\\  ",
-                  "      / '\\_) " ]
+                  "     ;;' \\    ",
+                  "  ,;;' ( '\\   ",
+                  "      / '\\_)  " ]
 
 
 printHorse :: Horse -> IO ()
@@ -125,7 +125,7 @@ justAddOneSequenceGenerator n = justAddOneSequenceGenerator (n - 1) ++ [ n ]
 
 pretty :: Horse -> IO ()
 -- Task 5 Print Horse
-pretty horse = printHorse horse 
+pretty horse = printHorse horse
 
 duplicateHorse :: Horse -> Int  -> Horse
 -- helper function to generate horse image with multiple horses
@@ -144,6 +144,3 @@ repeatString str n = str ++ repeatString str (n - 1)
 horseSeq :: (Int -> [ Int ]) -> Int -> Horse -> IO ()
 -- Task 5 Prints Horse in accordance with the sequence generated
 horseSeq seqGen n horse = mapM_ (printHorse.duplicateHorse horse) (seqGen n)
-
-
-
