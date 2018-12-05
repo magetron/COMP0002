@@ -4,6 +4,33 @@
 
 newtype Horse = Horsify { getHorse :: [ String ] }
 -- Task 1
+
+instance Show Horse where
+-- Task 6 Typeclass instance to redefine Show Horse
+         show (horse) = printStringHorse horse
+
+printStringHorse :: Horse -> String
+printStringHorse horse = printStringHorseHelper ( getHorse  horse )
+
+printStringHorseHelper :: [ String ] -> String
+printStringHorseHelper [] = ""
+printStringHorseHelper (str : strs) = str ++ "\n" ++ (printStringHorseHelper strs)
+
+instance Eq Horse where
+-- Take 6 Typeclass instance to redefine Eq Horse
+         horseX == horseY  =  (horseEq horseX horseY)
+
+horseEq :: Horse -> Horse -> Bool
+horseEq horseX horseY = horseEqHelper (getHorse horseX) (getHorse horseY)
+
+horseEqHelper :: [ String ] -> [ String ] -> Bool
+horseEqHelper [] [] = True
+horseEqHelper [ strX ] [] = False
+horseEqHelper [] [ strY ] = False
+horseEqHelper ( strX : strXs ) ( strY : strYs ) | (strX == strY) = True && (horseEqHelper strXs strYs)
+  						| otherwise = False 
+
+
 niceHorse :: Horse
 -- Task 2 get a nice horse than the one on the coursework sheet call it niceHorse or you can use the horse beneath
 niceHorse = Horsify [   "                                               #    #     ",
