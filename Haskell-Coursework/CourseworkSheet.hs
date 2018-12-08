@@ -5,6 +5,8 @@
 newtype Horse = Horsify { getHorse :: [ String ] }
 -- Task 1
 
+
+
 instance Show Horse where
 -- Task 6 Typeclass instance to redefine Show Horse
          show (horse) = printStringHorse horse
@@ -14,10 +16,11 @@ printStringHorse horse = printStringHorseHelper ( getHorse  horse )
 
 printStringHorseHelper :: [ String ] -> String
 printStringHorseHelper [] = ""
-printStringHorseHelper (str : strs) = str ++ "\n" ++ (printStringHorseHelper strs)
+printStringHorseHelper strs = foldr (\x y -> x ++ if y == "" then y else "\n" ++ y) "" strs
+--printStringHorseHelper (str : strs) = str ++ "\n" ++ (printStringHorseHelper strs)
 
 instance Eq Horse where
--- Take 6 Typeclass instance to redefine Eq Horse
+-- Task 6 Typeclass instance to redefine Eq Horse
          horseX == horseY  =  (horseEq horseX horseY)
 
 horseEq :: Horse -> Horse -> Bool
@@ -29,6 +32,8 @@ horseEqHelper [ strX ] [] = False
 horseEqHelper [] [ strY ] = False
 horseEqHelper ( strX : strXs ) ( strY : strYs ) | (strX == strY) = True && (horseEqHelper strXs strYs)
                                                 | otherwise = False 
+
+
 
 
 niceHorse :: Horse
@@ -91,43 +96,59 @@ printHorse horse = printHorseHelper (getHorse horse)
 printHorseHelper :: [ String ] -> IO ()
 printHorseHelper strs = mapM_ (putStrLn) strs
 
+
+
+modifyHorse :: ([ String ] -> [ String ]) -> Horse -> Horse
+-- Task 3 high order function 
+-- Usage: modifyHorse transpose horse
+--        modifyHorse mirror niceHorse
+modifyHorse func horse = Horsify (func (getHorse horse) )
+
+transpose :: [ String ] -> [ String ]
+transpose [] = []
+transpose (h : t) = if (null h) then []
+                                else map head ((h : t)) : transpose (map tail ((h : t)))
+
+mirror :: [ String ] -> [ String ]
+mirror strs = map reverseString strs
+
+reverseString :: String -> String
+reverseString [] = []
+reverseString str = foldr (\ch str -> str ++ [ ch ]) [] str 
+
+verticalMirror :: [ String ] -> [ String ]
+verticalMirror strs = reverseList strs 
+
 reverseList :: [ String ] -> [ String ]
--- self-implemented debug function
 reverseList [] = []
-reverseList (str : strs) = reverseList strs ++ [ str ]
+reverseList strs = foldr (\str strs -> strs ++ [ str ]) [] strs 
 
-transposeHorse :: Horse -> Horse
--- Task 3 turn 90 right
-transposeHorse horse = Horsify (transposeHorseHelper (reverseList(getHorse horse)))
 
-transposeHorseHelper :: [ String ] -> [ String ]
-transposeHorseHelper [] = []
-transposeHorseHelper (h : t) = if (null h) then []
-                                           else map head ((h : t)) : transposeHorseHelper (map tail ((h : t)))
-mirrorHorse :: Horse -> Horse
--- Task 3 vertical mirror
-mirrorHorse horse = Horsify ( reverseList(getHorse horse) )
+
+addOneSequenceGenerator :: Int -> [ Int ]
+-- Task 4 genreate sequence 0, 1, 2 ... n
+addOneSequenceGenerator n = enumFromTo 0 n
 
 squareSequenceGenerator :: Int -> [ Int ]
--- Task 4 Generate 0, 1, 4, 9, 16 .. n ^ 2
-squareSequenceGenerator 0 = [ 0 ]
-squareSequenceGenerator n = squareSequenceGenerator (n - 1) ++ [ n * n ]
+-- Task 4 generate sequence 0, 1, 4, 9 ... n ^ 2
+squareSequenceGenerator n = map ( ^ 2 ) ( addOneSequenceGenerator n )
 
-anotherSequenceGenerator :: Int -> [ Int ]
--- Task 4 Generate 1, 3, 5 .. (new number = previous * 2 - 1)
-anotherSequenceGenerator 1 = [ 1 ]
-anotherSequenceGenerator n = anotherSequenceGenerator (n - 1) ++ [last ( anotherSequenceGenerator (n - 1) ) * 2 + 1]
+powerOfTwoSequenceGenerator :: Int -> [ Int ]
+-- Task 4 genreate sequence 1, 2, 4, 8, 16 ... 2 ^ n
+powerOfTwoSequenceGenerator n = map ( 2 ^ ) ( addOneSequenceGenerator n )
 
-justAddOneSequenceGenerator :: Int -> [ Int ]
--- Task 4 Generate 0, 1, 2, 3, 4 ... n
-justAddOneSequenceGenerator 0 = [ 0 ]
-justAddOneSequenceGenerator n = justAddOneSequenceGenerator (n - 1) ++ [ n ]
+tribonacciGenerator :: Int -> [ Int ]
+-- Task 4 generate sequence 0, 0, 1, 1, 2, 4, 7, 13, 24 ... (add previous 3 numbers)
+tribonacciGenerator 1 = [ 0 ]
+tribonacciGenerator 2 = [ 0, 0 ]
+tribonacciGenerator 3 = [ 0, 0, 1]
+tribonacciGenerator n = tribonacciGenerator (n - 1) ++ [sum (drop (n - 4) (tribonacciGenerator (n - 1)) )]
 
 pretty :: Horse -> IO ()
 -- Task 5 Print Horse
 pretty horse = printHorse horse
 
-duplicateHorse :: Horse -> Int  -> Horse
+duplicateHorse :: Horse -> Int -> Horse
 -- helper function to generate horse image with multiple horses
 duplicateHorse horse 0 = Horsify ( ["\n\n ** no horse ** \n\n"] )
 duplicateHorse horse n = Horsify ( duplicateHorseHelper (getHorse horse) n )
