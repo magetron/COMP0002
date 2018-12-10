@@ -105,9 +105,12 @@ modifyHorse :: ([ String ] -> [ String ]) -> Horse -> Horse
 modifyHorse func horse = Horsify (func (getHorse horse) )
 
 transpose :: [ String ] -> [ String ]
-transpose [] = []
-transpose (h : t) = if (null h) then []
-                                else map head ((h : t)) : transpose (map tail ((h : t)))
+transpose strs = transposeHelper ( reverseList strs ) 
+
+transposeHelper :: [ String ] -> [ String ]
+transposeHelper [] = []
+transposeHelper (h : t) = if (null h) then []
+                                else map head ((h : t)) : transposeHelper (map tail ((h : t)))
 
 mirror :: [ String ] -> [ String ]
 mirror strs = map reverseString strs
@@ -121,8 +124,13 @@ verticalMirror strs = reverseList strs
 
 reverseList :: [ String ] -> [ String ]
 reverseList [] = []
-reverseList strs = foldr (\str strs -> strs ++ [ str ]) [] strs 
+reverseList strs = foldr (\str strs -> strs ++ [ str ]) [] strs
 
+-- All rotations possible :
+-- Turn 90 : modifyHorse transpose horse
+-- Turn 180 : modifyHorse transpose ( modifyHorse transpose horse )
+-- Turn 270 : modifyHorse transpose ( modifyHorse transpose ( modifyHorse transpose horse ))
+-- Mirror : modifyHorse mirror horse
 
 
 addOneSequenceGenerator :: Int -> [ Int ]
