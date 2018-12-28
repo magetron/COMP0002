@@ -152,6 +152,8 @@ tribonacciGenerator 2 = [ 0, 0 ]
 tribonacciGenerator 3 = [ 0, 0, 1]
 tribonacciGenerator n = tribonacciGenerator (n - 1) ++ [sum (drop (n - 4) (tribonacciGenerator (n - 1)) )]
 
+
+
 pretty :: Horse -> IO ()
 -- Task 5 Print Horse
 pretty horse = printHorse horse
