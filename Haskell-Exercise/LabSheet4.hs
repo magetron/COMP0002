@@ -37,3 +37,21 @@ countPositives' xs = length ( filter (\x -> x > 0)  xs )
 prop_countPositives :: [ Int ] -> Bool
 prop_countPositives xs = countPositives xs == countPositives' xs
 
+rotor :: Int -> [Char] -> [Char]
+rotor n [] = []
+rotor 0 str = str
+rotor n (c:str) | (0 <= n) && (n < length (c:str)) = rotor (n-1) (str ++ [c])
+ --               | otherwise = error "offset out of range"
+
+
+makeKey :: Int -> [ (Char, Char) ]
+makeKey n = zip upperAl (rotor n upperAl)
+		where upperAl = [ 'A' .. 'Z' ]
+
+lookUp :: Char -> [ (Char, Char) ] -> Char
+lookUp c [ ] = c
+lookUp c ( (c1, c2) : pairs) 	| c == c1 = c2
+ 				| otherwise = lookUp c pairs
+
+encipher :: Int -> Char -> Char
+encipher n c = lookUp c ( makeKey n )
