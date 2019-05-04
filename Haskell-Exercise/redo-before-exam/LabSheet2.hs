@@ -44,4 +44,29 @@ msort [ ] = [ ]
 msort [ x ] = [ x ]
 msort xs = merge (msort (take (length xs `div` 2) xs)) (msort (drop (length xs `div` 2) xs))
 
+rotor :: Int -> String -> String
+rotor offset [ ] 		| offset < 0 	= error "offset smaller than 0"
+  						| otherwise 	= error "offset larger than / equal to string length"
+rotor 0 xs				= xs
+rotor offset (x : xs)	| offset < 0 	= error "offset smaller than 0"
+  						| offset >= length (x : xs) = error "offset larger than / equal to string length"
+						| otherwise 	= (rotor (offset - 1) (xs ++ [ x ]))
 
+alphabets :: String
+alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+makeKey :: Int -> [(Char, Char)]
+makeKey offset = zip alphabets (rotor offset alphabets)
+
+lookUp :: Char -> [(Char, Char)] -> Char
+lookUp ch [ ] = ch
+lookUp ch ((x, y) : dict) = if (ch == x) then y else lookUp ch dict
+
+encipher :: Int -> Char -> Char
+encipher offset ch = lookUp ch (makeKey offset)
+
+normalise :: String -> String
+normalise str = map toUpper (filter isAlphaNum str)
+
+encipherStr :: Int -> String -> String
+encipherStr offset str = [encipher offset ch | ch <- (normalise str)]
